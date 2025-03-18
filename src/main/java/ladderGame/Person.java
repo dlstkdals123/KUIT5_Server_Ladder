@@ -3,7 +3,7 @@ package ladderGame;
 public class Person {
     private int person;
 
-    public Person(int person) {
+    public Person(final int person) {
         validateNumber(person);
         this.person = person;
     }
@@ -14,5 +14,7 @@ public class Person {
 
     }
 
-
+    public int getPerson() {
+        return person;
+    }
 }
