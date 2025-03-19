@@ -11,22 +11,22 @@ public class Ladder {
         positions = new boolean[person + 1][ladderHeight + 1];
     }
 
-    public boolean drawLine(final int row, final int column) {
-        if (!validateRow(row) || !validateColumn(column))
+    public boolean drawLine(Position position) {
+        if (!validateRow(position.getRow()) || !validateColumn(position.getColumn()))
             return false;
 
-        if (positions[row][column]) {
+        if (positions[position.getRow()][position.getColumn()]) {
             System.out.println("이미 해당 위치에 선이 존재합니다.");
             return false;
         }
 
-        if ((column < person.getPerson() && positions[row][column + 1])
-            || (column > 1 && positions[row][column - 1])) {
+        if ((position.getColumn() < person.getPerson() && positions[position.getRow()][position.getColumn() + 1])
+            || (position.getColumn() > 1 && positions[position.getRow()][position.getColumn() - 1])) {
             System.out.println("인접한 선이 존재합니다.");
             return false;
         }
 
-        positions[row][column] = true;
+        positions[position.getRow()][position.getColumn()] = true;
         return true;
     }
 

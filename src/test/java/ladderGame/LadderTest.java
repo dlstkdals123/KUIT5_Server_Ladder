@@ -21,10 +21,10 @@ class LadderTest {
 
     @ParameterizedTest
     @CsvSource(value = {"1, 1", "1, 5", "5, 1", "5, 5"})
-    @DisplayName("입력한 선의 인덱스는 (1, 1) 이상 (사다리높이, 사람수) 이하여야 합니다.")
-    void testRowAndColumn(final int row, final int column) {
+    @DisplayName("입력한 선의 인덱스는 (1, 1) 이상 (사다리높이, 사람수) 이하여야 합니다. (Positive)")
+    void testRowAndColumnPositive(final int row, final int column) {
         // when
-        boolean result = ladder.drawLine(row, column);
+        boolean result = ladder.drawLine(new Position(row, column));
 
         // then
         assertTrue(result);
@@ -33,11 +33,11 @@ class LadderTest {
 
 
     @ParameterizedTest
-    @CsvSource(value = {"0, 1", "6, 1", "1, 0", "1, 6", "-1, -1"})
-    @DisplayName("입력한 선이 중복되면 저장되지 않습니다.")
-    void testExistingLine(final int row, final int column) {
+    @CsvSource(value = {"1, 6", "6, 1"})
+    @DisplayName("입력한 선의 인덱스는 (1, 1) 이상 (사다리높이, 사람수) 이하여야 합니다. (Negative)")
+    void testRowAndColumnNegative(final int row, final int column) {
         // when
-        boolean result = ladder.drawLine(row, column);
+        boolean result = ladder.drawLine(new Position(row, column));
 
         // then
         assertFalse(result);
@@ -46,15 +46,32 @@ class LadderTest {
 
 
     @ParameterizedTest
+    @CsvSource(value = {"1, 1"})
+    @DisplayName("입력한 선이 중복되면 저장되지 않습니다.")
+    void testExistingLine(final int row, final int column) {
+        // given
+        ladder.drawLine(new Position(1, 1));
+
+        // when
+        boolean result = ladder.drawLine(new Position(row, column));
+
+        // then
+        assertFalse(result);
+    }
+
+
+
+
+    @ParameterizedTest
     @CsvSource(value = {"1, 2", "5, 4"})
     @DisplayName("입력한 선과 인접한 선이 있다면 저장되지 않습니다.")
     void testAdjLine(final int row, final int column) {
         // given
-        ladder.drawLine(1, 1);
-        ladder.drawLine(5, 5);
+        ladder.drawLine(new Position(1, 1));
+        ladder.drawLine(new Position(5, 5));
 
         // when
-        boolean result = ladder.drawLine(row, column);
+        boolean result = ladder.drawLine(new Position(row, column));
 
         // then
         assertFalse(result);
