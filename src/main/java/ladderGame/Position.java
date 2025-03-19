@@ -1,7 +1,7 @@
 package ladderGame;
 
 public class Position {
-    private int row, column;
+    private final int row, column;
 
     public Position(final int row, final int column) {
         checkPositive(row, column);

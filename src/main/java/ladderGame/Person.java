@@ -1,7 +1,7 @@
 package ladderGame;
 
 public class Person {
-    private int person;
+    private final int person;
 
     public Person(final int person) {
         checkPositive(person);

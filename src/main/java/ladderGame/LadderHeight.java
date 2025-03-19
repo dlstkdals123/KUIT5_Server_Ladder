@@ -1,7 +1,7 @@
 package ladderGame;
 
 public class LadderHeight {
-    private int ladderHeight;
+    private final int ladderHeight;
 
     public LadderHeight(int ladderHeight) {
         checkPositive(ladderHeight);
