@@ -1,26 +1,87 @@
 package ladderGame;
 
 public class LadderRunner {
-    public int run(Ladder ladder, PositiveNumber startNumber) {
-        int currentNumber = startNumber.getNumber();
-        int row = ladder.getHeight();
+    private Ladder ladder;
+    private boolean debug;
 
-        while(row > 0) {
-            if (currentNumber > 1 && ladder.hasLine(new Position(row, currentNumber - 1))) { // 왼쪽 선이 있는 경우
-                row--;
-                currentNumber--;
-                continue;
-            }
+    public LadderRunner(Ladder ladder, boolean debug) {
+        this.ladder = ladder;
+        this.debug = debug;
+    }
 
-            if (currentNumber < ladder.getWidth() && ladder.hasLine(new Position(row, currentNumber))) { // 오른쪽 선이 있는 경우
-                row--;
-                currentNumber++;
-                continue;
-            }
+    public int run(PositiveNumber startNumber) {
+        Position position = new Position(ladder.getHeight(), startNumber.getNumber());
 
-            row--;
+        if (debug)
+            LadderPrinter.printLadder(ladder, position);
+
+        while(canMoveDown(position)) {
+            position = move(position);
         }
 
-        return currentNumber;
+        int row = position.getRow();
+        int column = position.getColumn();
+
+        if (column < ladder.getWidth() && ladder.hasLine(position)) {
+            return moveRight(position).getColumn();
+        }
+
+        if (column > 1 && ladder.hasLine(new Position(row, column - 1))) // move left
+            return moveLeft(position).getColumn();
+
+        return column;
     }
+
+    private Position move(Position currentPosition) {
+        int row = currentPosition.getRow();
+        int column = currentPosition.getColumn();
+
+        if (column < ladder.getWidth() && ladder.hasLine(currentPosition)) { // move right
+            return moveRight(currentPosition);
+        }
+
+        if (column > 1 && ladder.hasLine(new Position(row, column - 1))) { // move left
+            return moveLeft(currentPosition);
+        }
+
+        return moveDown(currentPosition);
+
+    }
+
+    private boolean canMoveDown(Position currentPosition) {
+        return currentPosition.getRow() > 1;
+    }
+
+    private Position moveLeft(Position currentPosition) {
+        currentPosition = new Position(currentPosition.getRow(), currentPosition.getColumn() - 1);
+        if (debug)
+            LadderPrinter.printLadder(ladder, currentPosition);
+
+        if (canMoveDown(currentPosition)) { // move down
+            currentPosition = moveDown(currentPosition);
+        }
+
+        return currentPosition;
+    }
+
+    private Position moveRight(Position currentPosition) {
+        currentPosition = new Position(currentPosition.getRow(), currentPosition.getColumn() + 1);
+        if (debug)
+            LadderPrinter.printLadder(ladder, currentPosition);
+
+        if (canMoveDown(currentPosition)) { // move down
+            currentPosition = moveDown(currentPosition);
+        }
+
+        return currentPosition;
+    }
+
+    private Position moveDown(Position currentPosition) {
+        currentPosition = new Position(currentPosition.getRow() - 1, currentPosition.getColumn());
+        if (debug)
+            LadderPrinter.printLadder(ladder, currentPosition);
+        return currentPosition;
+    }
+
+
 }

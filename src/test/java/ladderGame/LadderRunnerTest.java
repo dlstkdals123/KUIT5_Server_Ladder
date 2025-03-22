@@ -22,9 +22,9 @@ class LadderRunnerTest {
         ladder.drawLine(new Position(2, 2));
         ladder.drawLine(new Position(1, 3));
 
-        LadderRunner ladderRunner = new LadderRunner();
+        LadderRunner ladderRunner = new LadderRunner(ladder, false);
 
         // then
-        assertThat(ladderRunner.run(ladder, new PositiveNumber(startNumber))).isEqualTo(endNumber);
+        assertThat(ladderRunner.run(new PositiveNumber(startNumber))).isEqualTo(endNumber);
     }
 }
