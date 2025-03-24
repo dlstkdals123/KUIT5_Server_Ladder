@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.*;
 
-class LadderHeightTest {
+class HeightTest {
 
     @ParameterizedTest
     @ValueSource(ints = {-1, 0})
@@ -16,7 +16,7 @@ class LadderHeightTest {
         String expectedErrorMessage = "사다리의 높이는 1 이상이어야 합니다.";
 
         // when & then
-        assertThatThrownBy(() -> new LadderHeight(ladderHeight))
+        assertThatThrownBy(() -> new Height(ladderHeight))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(expectedErrorMessage);
 

@@ -1,9 +1,9 @@
 package ladderGame;
 
-public class LadderHeight {
+public class Height {
     private final int ladderHeight;
 
-    public LadderHeight(int ladderHeight) {
+    public Height(int ladderHeight) {
         checkPositive(ladderHeight);
         this.ladderHeight = ladderHeight;
     }
