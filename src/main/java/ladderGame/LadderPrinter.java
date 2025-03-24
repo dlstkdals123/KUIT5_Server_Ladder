@@ -6,25 +6,25 @@ public class LadderPrinter {
     private static final char moveLine = '↓';
     private static final char space = ' ';
 
-    public static void printLadder(Ladder ladder, Position currentPosition) {
-        for(int row = ladder.getHeight(); row >= 1; row--) {
-            printColumn(ladder, currentPosition, row);
+    public static void printLadder(LadderGame ladderGame, Position position) {
+        for(int row = ladderGame.getHeight(); row >= 1; row--) {
+            printColumn(ladderGame, position, row);
             System.out.println();
         }
         System.out.println();
 
     }
 
-    private static void printColumn(Ladder ladder, Position currentPosition, int currentRow) {
-        for (int column = 1; column <= ladder.getWidth(); column++) {
-            printRowCell(currentPosition, currentRow, column);
-            if (column < ladder.getWidth())
-                printColumnCell(ladder, currentRow, column);
+    private static void printColumn(LadderGame ladderGame, Position position, int currentRow) {
+        for (int column = 1; column <= ladderGame.getWidth(); column++) {
+            printRowCell(position, currentRow, column);
+            if (column < ladderGame.getWidth())
+                printColumnCell(ladderGame, currentRow, column);
         }
     }
 
-    private static void printRowCell(Position currentPosition, int currentRow, int currentColumn) {
-        if (currentPosition.getRow() == currentRow && currentPosition.getColumn() == currentColumn) {
+    private static void printRowCell(Position position, int currentRow, int currentColumn) {
+        if (position.getRow() == currentRow && position.getColumn() == currentColumn) {
             System.out.print(moveLine);
             return;
         }
@@ -32,8 +32,8 @@ public class LadderPrinter {
         System.out.print(rowLine);
     }
 
-    private static void printColumnCell(Ladder ladder, int currentRow, int currentColumn) {
-        if (ladder.hasLine(new Position(currentRow, currentColumn))) {
+    private static void printColumnCell(LadderGame ladderGame, int currentRow, int currentColumn) {
+        if (ladderGame.hasLine(new Position(currentRow, currentColumn, ladderGame.getHeight(), ladderGame.getWidth()))) {
             System.out.print(columnLine);
             return;
         }

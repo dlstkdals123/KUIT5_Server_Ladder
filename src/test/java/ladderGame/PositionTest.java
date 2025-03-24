@@ -10,6 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PositionTest {
+    private static final int person = 5;
+    private static final int ladderHeight = 5;
 
     @Test
     @DisplayName("Positive: 가로와 세로 모두 자연수여야 한다.")
@@ -19,7 +21,7 @@ class PositionTest {
         final int validColumn = 2;
 
         // when
-        Position position = new Position(validRow, validColumn);
+        Position position = new Position(validRow, validColumn, person, ladderHeight);
 
         // then
         assertThat(position).isNotNull();
@@ -36,7 +38,7 @@ class PositionTest {
         String expectedErrorMessage = ExceptionCode.NOT_POSITIVE_INPUT.getMessage();
 
         // when & then
-        assertThatThrownBy(() -> new Position(invalidRow, invalidColumn))
+        assertThatThrownBy(() -> new Position(invalidRow, invalidColumn, person, ladderHeight))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(expectedErrorMessage);
 
