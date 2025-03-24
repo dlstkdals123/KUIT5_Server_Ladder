@@ -10,7 +10,7 @@ public class LadderGameFactory {
         int numberOfLadderLine = (int) (person * height * 0.3);
         Random random = new Random();
 
-        ArrayList<Position> positions = getPositions();
+        ArrayList<Position> positions = getPositions(person, height);
 
         while(true) {
             if (numberOfLadderLine == 0)
@@ -41,7 +41,7 @@ public class LadderGameFactory {
         }
     }
 
-    private static ArrayList<Position> getPositions() {
+    private static ArrayList<Position> getPositions(int person, int height) {
         ArrayList<Position> positions = new ArrayList<Position>();
 
         for(int possibleRow = 1; possibleRow < height; possibleRow++) {
