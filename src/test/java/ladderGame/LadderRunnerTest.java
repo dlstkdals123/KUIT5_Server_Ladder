@@ -14,6 +14,8 @@ class LadderRunnerTest {
     void shouldCreateLadderSuccessfullyWhenPositiveNumbers(int startNumber, int endNumber) {
         // given
         int person = 5, ladderHeight = 5;
+        PositiveNumber startPosition = new PositiveNumber(startNumber);
+        PositiveNumber endPosition = new PositiveNumber(endNumber);
         LadderGame ladderGame = new LadderGame(person, ladderHeight);
 
         ladderGame.drawLine(new Position(5, 1, person, ladderHeight));
@@ -25,6 +27,6 @@ class LadderRunnerTest {
         LadderRunner ladderRunner = new LadderRunner(ladderGame, false);
 
         // then
-        assertThat(ladderRunner.run(new PositiveNumber(startNumber))).isEqualTo(endNumber);
+        assertThat(ladderRunner.run(startPosition)).isEqualTo(endPosition.getNumber());
     }
 }
