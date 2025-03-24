@@ -8,3 +8,9 @@
 5. 새로 생성한 브랜치에서 pr을 작성한다.
 
 상세 방법 : [Server 미션 제출 방법](https://confusion-ping-ae2.notion.site/Server-1b53114cc9c5805695eeda2ade8806db?pvs=4)
+
+
+## To-do
+- Row, Col 클래스 생성
+- CsvSource -> MethodSource로 변경
+- given에 있는 getMessage 수정
