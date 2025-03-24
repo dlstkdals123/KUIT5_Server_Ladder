@@ -1,27 +1,18 @@
 package ladderGame;
 
 public class Position {
-    private final int row, column;
+    private PositiveNumber row, column;
 
-    public Position(final int row, final int column) {
-        checkPositive(row, column);
-        this.row = row;
-        this.column = column;
-    }
-
-    private void checkPositive(final int row, final int column) {
-        if (row < 1)
-            throw new IllegalArgumentException("가로는 1 이상이어야 합니다.");
-
-        if (column < 1)
-            throw new IllegalArgumentException("세로는 1 이상이어야 합니다.");
+    public Position(int row, int column) {
+        this.row = new PositiveNumber(row);
+        this.column = new PositiveNumber(column);
     }
 
     public int getRow() {
-        return row;
+        return row.getNumber();
     }
 
     public int getColumn() {
-        return column;
+        return column.getNumber();
     }
 }

@@ -1,75 +1,62 @@
 package ladderGame;
 
 public class Ladder {
-    private final Person person;
-    private final LadderHeight ladderHeight;
-    private final boolean[][] positions;
+    private PositiveNumber person;
+    private PositiveNumber ladderHeight;
+    private boolean[][] positions;
 
-    public Ladder(final int person, final int ladderHeight) {
-        this.person = new Person(person);
-        this.ladderHeight = new LadderHeight(ladderHeight);
+    public Ladder(int person, int ladderHeight) {
+        this.person = new PositiveNumber(person);
+        this.ladderHeight = new PositiveNumber(ladderHeight);
         positions = new boolean[person + 1][ladderHeight + 1];
     }
 
-    public boolean drawLine(Position position) {
-        if (!validateRow(position.getRow()) || !validateColumn(position.getColumn()))
-            return false;
+    public void drawLine(Position position) {
+        final int row = position.getRow(), column = position.getColumn();
+        validateAll(row, column);
 
-        if (positions[position.getRow()][position.getColumn()]) {
-            System.out.println("이미 해당 위치에 선이 존재합니다.");
-            return false;
-        }
-
-        if ((position.getColumn() < person.getPerson() && positions[position.getRow()][position.getColumn() + 1])
-            || (position.getColumn() > 1 && positions[position.getRow()][position.getColumn() - 1])) {
-            System.out.println("인접한 선이 존재합니다.");
-            return false;
-        }
-
-        positions[position.getRow()][position.getColumn()] = true;
-        return true;
+        positions[row][column] = true;
     }
 
-    public int run(int startNumber) {
-        if (startNumber < 1 || startNumber > person.getPerson()) {
-            System.out.println("시작 지점은 1 이상 " + person.getPerson() + " 이하만 가능합니다.");
-            return -1;
-        }
-
-        int row = ladderHeight.getLadderHeight();
-
-        while(row > 0) {
-            if (positions[row][startNumber - 1]) {
-                row--;
-                startNumber--;
-                continue;
-            }
-
-            if (positions[row][startNumber]) {
-                row--;
-                startNumber++;
-                continue;
-            }
-
-            row--;
-        }
-
-        return startNumber;
+    public int getHeight() {
+        return ladderHeight.getNumber();
     }
 
-    private boolean validateRow(final int row) {
-        if (row < 1 || row > ladderHeight.getLadderHeight()) {
-            System.out.println("세로 줄의 번호는 1 이상 " + ladderHeight.getLadderHeight() + " 이하여야 합니다.");
-            return false;
-        }
-        return true;
+    public int getWidth() {
+        return person.getNumber();
     }
 
-    private boolean validateColumn(final int column) {
-        if (column < 1 || column > person.getPerson()) {
-            System.out.println("가로 줄의 번호는 1 이상 " + person.getPerson() + " 이하여야 합니다.");
-            return false;
+    public boolean hasLine(Position position) {
+        final int row = position.getRow(), column = position.getColumn();
+        return positions[row][column];
+    }
+
+    private void validateAll(int row, int column) {
+        validateRow(row);
+        validateColumn(column);
+        validatePresentLine(row, column);
+        validateAdjLine(row, column);
+    }
+
+    private void validateRow(int row) {
+        if (row > ladderHeight.getNumber())
+            throw new IllegalArgumentException(ExceptionCode.ROW_OUT_OF_RANGE.getMessage());
+    }
+
+    private void validateColumn(int column) {
+        if (column > person.getNumber())
+            throw new IllegalArgumentException(ExceptionCode.COLUMN_OUT_OF_RANGE.getMessage());
+    }
+
+    private void validatePresentLine(int row, int column) {
+        if (positions[row][column])
+            throw new IllegalArgumentException(ExceptionCode.PRESENT_LINE.getMessage());
+    }
+
+    private void validateAdjLine(int row, int column) {
+        if ((column < person.getNumber() && positions[row][column + 1]) // 오른쪽에 인접한 선이 있는 경우
+                || (column > 1 && positions[row][column - 1])) { // 왼쪽에 인접한 선이 있는 경우
+            throw new IllegalArgumentException(ExceptionCode.ADJACENT_LINE.getMessage());
         }
-        return true;
     }
 }

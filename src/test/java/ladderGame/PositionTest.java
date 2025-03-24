@@ -2,37 +2,41 @@ package ladderGame;
 
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PositionTest {
 
-    @ParameterizedTest
-    @CsvSource(value = {"-1, 1", "0, 1"})
-    @DisplayName("가로는 1 이상이어야 한다. (Negative)")
-    void testRowNegative(final int row, final int column) {
+    @Test
+    @DisplayName("Positive: 가로와 세로 모두 자연수여야 한다.")
+    void shouldCreatePositionSuccessfullyWhenPositiveNumbers() {
         // given
-        String expectedErrorMessage = "가로는 1 이상이어야 합니다.";
+        final int validRow = 1;
+        final int validColumn = 2;
 
-        // when & then
-        assertThatThrownBy(() -> new Position(row, column))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(expectedErrorMessage);
+        // when
+        Position position = new Position(validRow, validColumn);
 
+        // then
+        assertThat(position).isNotNull();
+        assertThat(position.getRow()).isEqualTo(validRow);
+        assertThat(position.getColumn()).isEqualTo(validColumn);
     }
 
 
     @ParameterizedTest
-    @CsvSource(value = {"1, -1", "1, 0"})
-    @DisplayName("가로는 1 이상이어야 한다. (Negative)")
-    void testColumnNegative(final int row, final int column) {
+    @CsvSource(value = {"-1, 1", "0, 1", "1, -1", "1, 0"})
+    @DisplayName("Negative: 가로와 세로 모두 자연수여야 한다.")
+    void shouldThrowExceptionWhenNotPositiveNumbers(int invalidRow, int invalidColumn) {
         // given
-        String expectedErrorMessage = "세로는 1 이상이어야 합니다.";
+        String expectedErrorMessage = ExceptionCode.NOT_POSITIVE_INPUT.getMessage();
 
         // when & then
-        assertThatThrownBy(() -> new Position(row, column))
+        assertThatThrownBy(() -> new Position(invalidRow, invalidColumn))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(expectedErrorMessage);
 
