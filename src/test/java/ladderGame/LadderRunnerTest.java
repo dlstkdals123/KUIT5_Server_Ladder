@@ -16,13 +16,13 @@ class LadderRunnerTest {
         int person = 5, ladderHeight = 5;
         PositiveNumber startPosition = new PositiveNumber(startNumber);
         PositiveNumber endPosition = new PositiveNumber(endNumber);
-        LadderGame ladderGame = new LadderGame(person, ladderHeight);
+        LadderGame ladderGame = new LadderGame(ladderHeight, person);
 
-        ladderGame.drawLine(new Position(5, 1, person, ladderHeight));
-        ladderGame.drawLine(new Position(4, 2, person, ladderHeight));
-        ladderGame.drawLine(new Position(3, 1, person, ladderHeight));
-        ladderGame.drawLine(new Position(2, 2, person, ladderHeight));
-        ladderGame.drawLine(new Position(1, 3, person, ladderHeight));
+        ladderGame.drawLine(new Position(5, 1, ladderHeight, person));
+        ladderGame.drawLine(new Position(4, 2, ladderHeight, person));
+        ladderGame.drawLine(new Position(3, 1, ladderHeight, person));
+        ladderGame.drawLine(new Position(2, 2, ladderHeight, person));
+        ladderGame.drawLine(new Position(1, 3, ladderHeight, person));
 
         LadderRunner ladderRunner = new LadderRunner(ladderGame, false);
 

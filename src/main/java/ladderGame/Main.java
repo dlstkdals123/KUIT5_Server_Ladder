@@ -2,22 +2,22 @@ package ladderGame;
 
 public class Main {
     public static void main(String[] args) {
-        int person = 5, ladderHeight = 5;
+        int person = 5, height = 4;
         int startNumber = 2;
-//        LadderGame ladderGame = new LadderGame(person, ladderHeight);
+//        LadderGame ladderGame = new LadderGame(person, height);
 //
-//        ladderGame.drawLine(new Position(5, 1, person, ladderHeight));
-//        ladderGame.drawLine(new Position(4, 2, person, ladderHeight));
-//        ladderGame.drawLine(new Position(3, 1, person, ladderHeight));
-//        ladderGame.drawLine(new Position(2, 2, person, ladderHeight));
-//        ladderGame.drawLine(new Position(1, 3, person, ladderHeight));
+//        ladderGame.drawLine(new Position(5, 1, person, height));
+//        ladderGame.drawLine(new Position(4, 2, person, height));
+//        ladderGame.drawLine(new Position(3, 1, person, height));
+//        ladderGame.drawLine(new Position(2, 2, person, height));
+//        ladderGame.drawLine(new Position(1, 3, person, height));
 //
 //        LadderRunner ladderRunner = new LadderRunner(ladderGame, true);
 //
 //        System.out.println(ladderRunner.run(new PositiveNumber(startNumber)));
 
 
-        LadderGame randomLadderGame = LadderGameFactory.createRandomLadderGame(person, ladderHeight);
+        LadderGame randomLadderGame = LadderGameFactory.createRandomLadderGame(height, person);
         LadderRunner randomLadderRunner = new LadderRunner(randomLadderGame, true);
 
         System.out.println(randomLadderRunner.run(new PositiveNumber(startNumber)));

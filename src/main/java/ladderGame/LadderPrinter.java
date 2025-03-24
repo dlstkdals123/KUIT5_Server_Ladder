@@ -8,14 +8,14 @@ public class LadderPrinter {
 
     public static void printLadder(LadderGame ladderGame, Position position) {
         for(int row = ladderGame.getHeight(); row >= 1; row--) {
-            printColumn(ladderGame, position, row);
+            printRow(ladderGame, position, row);
             System.out.println();
         }
         System.out.println();
 
     }
 
-    private static void printColumn(LadderGame ladderGame, Position position, int currentRow) {
+    private static void printRow(LadderGame ladderGame, Position position, int currentRow) {
         for (int column = 1; column <= ladderGame.getWidth(); column++) {
             printRowCell(position, currentRow, column);
             if (column < ladderGame.getWidth())

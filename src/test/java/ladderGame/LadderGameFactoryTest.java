@@ -14,13 +14,13 @@ class LadderGameFactoryTest {
         // given
         final int person = 5;
         final int height = 4;
-        final int numberOfLadderLine = (int) (person * height * 0.3);
+        final int numberOfLadderLine = person * height * 3 / 10;
         int countOfLadderLine = 0;
 
         LadderGame ladderGame = LadderGameFactory.createRandomLadderGame(height, person);
         for(int row = 1; row <= height; row++) {
-            for(int column = 1; column <= person; column++) {
-                if (ladderGame.hasLine(new Position(row, column, person, height))) {
+            for(int column = 1; column < person; column++) {
+                if (ladderGame.hasLine(new Position(row, column, height, person))) {
                     countOfLadderLine++;
 
                 }
@@ -41,7 +41,7 @@ class LadderGameFactoryTest {
         final int height = 10;
 
         // when & then
-        assertThatThrownBy(() -> LadderGameFactory.createRandomLadderGame(person, height))
+        assertThatThrownBy(() -> LadderGameFactory.createRandomLadderGame(height, person))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ExceptionCode.NO_SOLO_RANDOM_LADDER.getMessage());
     }
