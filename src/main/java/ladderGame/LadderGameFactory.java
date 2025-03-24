@@ -42,7 +42,7 @@ public class LadderGameFactory {
     }
 
     private static ArrayList<Position> getPositions(int person, int height) {
-        ArrayList<Position> positions = new ArrayList<Position>();
+        ArrayList<Position> positions = new ArrayList<>();
 
         for(int possibleRow = 1; possibleRow < height; possibleRow++) {
             for(int possibleColumn = 1; possibleColumn < person; possibleColumn++) {
