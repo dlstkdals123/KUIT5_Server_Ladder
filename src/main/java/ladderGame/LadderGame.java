@@ -1,11 +1,11 @@
 package ladderGame;
 
-public class Ladder {
+public class LadderGame {
     private PositiveNumber person;
     private PositiveNumber ladderHeight;
     private boolean[][] positions;
 
-    public Ladder(int person, int ladderHeight) {
+    public LadderGame(int person, int ladderHeight) {
         this.person = new PositiveNumber(person);
         this.ladderHeight = new PositiveNumber(ladderHeight);
         positions = new boolean[person + 1][ladderHeight + 1];
