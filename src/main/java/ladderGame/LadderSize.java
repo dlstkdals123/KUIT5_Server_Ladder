@@ -2,10 +2,10 @@ package ladderGame;
 
 public class LadderSize {
     private PositiveNumber person;
-    private PositiveNumber ladderHeight;
+    private PositiveNumber height;
 
-    public LadderSize(int ladderHeight, int person) {
-        this.ladderHeight = new PositiveNumber(ladderHeight);
+    public LadderSize(int height, int person) {
+        this.height = new PositiveNumber(height);
         this.person = new PositiveNumber(person);
     }
 
@@ -14,6 +14,6 @@ public class LadderSize {
     }
 
     public int getRow() {
-        return ladderHeight.getNumber();
+        return height.getNumber();
     }
 }

@@ -4,16 +4,15 @@ public class LadderGame {
     LadderSize ladderSize;
     private boolean[][] positions;
 
-    public LadderGame(LadderSize ladderSize) {
-        this.ladderSize = ladderSize;
+    public LadderGame(int person, int column) {
+        this.ladderSize = new LadderSize(person, column);
         positions = new boolean[ladderSize.getRow() + 1][ladderSize.getColumn() + 1];
     }
 
     public void drawLine(Position position) {
-        final int row = position.getRow(), column = position.getColumn();
-        validateAll(row, column);
+        validateAll(position);
 
-        positions[row][column] = true;
+        positions[position.getRow()][position.getColumn()] = true;
     }
 
     public int getHeight() {
@@ -25,35 +24,34 @@ public class LadderGame {
     }
 
     public boolean hasLine(Position position) {
-        final int row = position.getRow(), column = position.getColumn();
-        return positions[row][column];
+        return positions[position.getRow()][position.getColumn()];
     }
 
-    private void validateAll(int row, int column) {
-        validateRow(row);
-        validateColumn(column);
-        validatePresentLine(row, column);
-        validateAdjLine(row, column);
+    private void validateAll(Position position) {
+        validateRow(position);
+        validateColumn(position);
+        validatePresentLine(position);
+        validateAdjLine(position);
     }
 
-    private void validateRow(int row) {
-        if (row > this.getHeight())
+    private void validateRow(Position position) {
+        if (position.getRow() > this.getHeight())
             throw new IllegalArgumentException(ExceptionCode.ROW_OUT_OF_RANGE.getMessage());
     }
 
-    private void validateColumn(int column) {
-        if (column > this.getWidth())
+    private void validateColumn(Position position) {
+        if (position.getColumn() > this.getWidth())
             throw new IllegalArgumentException(ExceptionCode.COLUMN_OUT_OF_RANGE.getMessage());
     }
 
-    private void validatePresentLine(int row, int column) {
-        if (positions[row][column])
+    private void validatePresentLine(Position position) {
+        if (positions[position.getRow()][position.getColumn()])
             throw new IllegalArgumentException(ExceptionCode.PRESENT_LINE.getMessage());
     }
 
-    private void validateAdjLine(int row, int column) {
-        if ((column < getWidth() && positions[row][column + 1]) // 오른쪽에 인접한 선이 있는 경우
-                || (column > 1 && positions[row][column - 1])) { // 왼쪽에 인접한 선이 있는 경우
+    private void validateAdjLine(Position position) {
+        if ((position.getColumn() < getWidth() && positions[position.getRow()][position.getColumn() + 1]) // 오른쪽에 인접한 선이 있는 경우
+                || (position.getColumn() > 1 && positions[position.getRow()][position.getColumn() - 1])) { // 왼쪽에 인접한 선이 있는 경우
             throw new IllegalArgumentException(ExceptionCode.ADJACENT_LINE.getMessage());
         }
     }
