@@ -11,7 +11,8 @@ public enum ExceptionCode {
 
     // 논리 오류
     PRESENT_LINE("이미 해당 위치에 선이 존재합니다."),
-    ADJACENT_LINE("인접한 선이 존재합니다.");
+    ADJACENT_LINE("인접한 선이 존재합니다."),
+    NO_SOLO_RANDOM_LADDER("플레이어 수가 부족합니다.");
 
 
     private String message;

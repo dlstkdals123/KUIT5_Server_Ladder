@@ -50,9 +50,13 @@ public class LadderGame {
     }
 
     private void validateAdjLine(Position position) {
-        if ((position.getColumn() < getWidth() && positions[position.getRow()][position.getColumn() + 1]) // 오른쪽에 인접한 선이 있는 경우
-                || (position.getColumn() > 1 && positions[position.getRow()][position.getColumn() - 1])) { // 왼쪽에 인접한 선이 있는 경우
+        if (isAdjLine(position)) { // 왼쪽에 인접한 선이 있는 경우
             throw new IllegalArgumentException(ExceptionCode.ADJACENT_LINE.getMessage());
         }
+    }
+
+    public boolean isAdjLine(Position position) {
+        return ((position.getColumn() < getWidth() && positions[position.getRow()][position.getColumn() + 1]) // 오른쪽에 인접한 선이 있는 경우
+                || (position.getColumn() > 1 && positions[position.getRow()][position.getColumn() - 1]));
     }
 }
