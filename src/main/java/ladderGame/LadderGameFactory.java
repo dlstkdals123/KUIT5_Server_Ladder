@@ -22,11 +22,11 @@ public class LadderGameFactory {
             numberOfLadderLine--;
             positions.remove(randomIndex);
 
-            ArrayList<Position> possiblePositions = new ArrayList<Position>();
+            ArrayList<Position> possiblePositions = new ArrayList<>();
 
-            for(int index = 0; index < positions.size(); index++) {
-                if (!ladderGame.isAdjLine(positions.get(index)))
-                    possiblePositions.add(positions.get(index));
+            for (Position positionElement : positions) {
+                if (!ladderGame.isAdjLine(positionElement))
+                    possiblePositions.add(positionElement);
             }
 
             positions = possiblePositions;
