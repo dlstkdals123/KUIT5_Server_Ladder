@@ -3,7 +3,7 @@ package ladderGame;
 public class Main {
     public static void main(String[] args) {
         int person = 5, ladderHeight = 5;
-        int startNumber = 1;
+        int startNumber = 2;
         LadderGame ladderGame = new LadderGame(person, ladderHeight);
 
         ladderGame.drawLine(new Position(5, 1, person, ladderHeight));
@@ -14,6 +14,6 @@ public class Main {
 
         LadderRunner ladderRunner = new LadderRunner(ladderGame, true);
 
-        System.out.println(ladderRunner.run(new PositiveNumber(2)));
+        System.out.println(ladderRunner.run(new PositiveNumber(startNumber)));
     }
 }

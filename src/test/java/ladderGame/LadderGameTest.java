@@ -13,14 +13,12 @@ class LadderGameTest {
     private int person;
     private int ladderHeight;
     private static LadderGame ladderGame;
-    private static LadderSize ladderSize;
 
     @BeforeEach
     void setUp() {
         person = 5;
         ladderHeight = 5;
-        ladderSize = new LadderSize(person, ladderHeight);
-        ladderGame = new LadderGame(ladderSize);
+        ladderGame = new LadderGame(person, ladderHeight);
     }
 
     @Test
@@ -29,7 +27,7 @@ class LadderGameTest {
         // given
         final int validRow = 1;
         final int validColumn = 1;
-        Position validPosition = new Position(validRow, validColumn);
+        Position validPosition = new Position(validRow, validColumn, person, ladderHeight);
 
         // then
         assertThat(ladderGame).isNotNull();
@@ -44,7 +42,7 @@ class LadderGameTest {
     @DisplayName("Negative: 사람과 사다리의 높이는 모두 자연수여야 한다.")
     void shouldThrowExceptionWhenNotPositiveNumbers(int invalidPerson, int invalidHeight) {
         // given & when & then
-        assertThatThrownBy(() -> new LadderGame(new LadderSize(invalidPerson, invalidHeight)))
+        assertThatThrownBy(() -> new LadderGame(invalidPerson, invalidHeight))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ExceptionCode.NOT_POSITIVE_INPUT.getMessage());
     }
@@ -59,7 +57,7 @@ class LadderGameTest {
         String expectedErrorMessage = ExceptionCode.ROW_OUT_OF_RANGE.getMessage();
 
         // when & then
-        assertThatThrownBy(() -> ladderGame.drawLine(new Position(invalidRow, validColumn)))
+        assertThatThrownBy(() -> ladderGame.drawLine(new Position(invalidRow, validColumn, person, ladderHeight)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(expectedErrorMessage);
     }
@@ -74,7 +72,7 @@ class LadderGameTest {
         String expectedErrorMessage = ExceptionCode.COLUMN_OUT_OF_RANGE.getMessage();
 
         // when & then
-        assertThatThrownBy(() -> ladderGame.drawLine(new Position(validRow, invalidColumn)))
+        assertThatThrownBy(() -> ladderGame.drawLine(new Position(validRow, invalidColumn, person, ladderHeight)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(expectedErrorMessage);
     }
@@ -88,14 +86,14 @@ class LadderGameTest {
         final int validRow = 1;
         final int validColumn = 1;
         String expectedErrorMessage = ExceptionCode.PRESENT_LINE.getMessage();
-        ladderGame.drawLine(new Position(validRow, validColumn));
+        ladderGame.drawLine(new Position(validRow, validColumn, person, ladderHeight));
 
         // when
         final int invalidRow = validRow;
         final int invalidColumn = validRow;
 
         // then
-        assertThatThrownBy(() -> ladderGame.drawLine(new Position(invalidRow, invalidColumn)))
+        assertThatThrownBy(() -> ladderGame.drawLine(new Position(invalidRow, invalidColumn, person, ladderHeight)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(expectedErrorMessage);
     }
@@ -110,14 +108,14 @@ class LadderGameTest {
         final int validRow = 3;
         final int validColumn = 3;
         String expectedErrorMessage = ExceptionCode.ADJACENT_LINE.getMessage();
-        ladderGame.drawLine(new Position(validRow, validColumn));
+        ladderGame.drawLine(new Position(validRow, validColumn, person, ladderHeight));
 
         // when
         final int invalidRow = validRow + rowOffset;
         final int invalidColumn = validRow + columnOffset;
 
         // then
-        assertThatThrownBy(() -> ladderGame.drawLine(new Position(invalidRow, invalidColumn)))
+        assertThatThrownBy(() -> ladderGame.drawLine(new Position(invalidRow, invalidColumn, person, ladderHeight)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(expectedErrorMessage);
     }
@@ -128,8 +126,8 @@ class LadderGameTest {
         // given
         final int validRow = 3;
         final int validColumn = 3;
-        Position validPosition = new Position(validRow, validColumn);
-        ladderGame.drawLine(new Position(validRow, validColumn));
+        Position validPosition = new Position(validRow, validColumn, person, ladderHeight);
+        ladderGame.drawLine(new Position(validRow, validColumn, person, ladderHeight));
 
         // then
         assertThat(ladderGame.hasLine(validPosition)).isTrue();
