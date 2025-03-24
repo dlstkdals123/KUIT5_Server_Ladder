@@ -22,14 +22,7 @@ public class LadderGameFactory {
             numberOfLadderLine--;
             positions.remove(randomIndex);
 
-            ArrayList<Position> possiblePositions = new ArrayList<>();
-
-            for (Position positionElement : positions) {
-                if (!ladderGame.isAdjLine(positionElement))
-                    possiblePositions.add(positionElement);
-            }
-
-            positions = possiblePositions;
+            positions = updatePositions(positions, ladderGame);
         }
 
         return ladderGame;
@@ -52,5 +45,16 @@ public class LadderGameFactory {
         }
 
         return positions;
+    }
+
+    private static ArrayList<Position> updatePositions(ArrayList<Position> positions, LadderGame ladderGame) {
+        ArrayList<Position> newPositions = new ArrayList<>();
+
+        for (Position position : positions) {
+            if (!ladderGame.isAdjLine(position))
+                newPositions.add(position);
+        }
+
+        return newPositions;
     }
 }
