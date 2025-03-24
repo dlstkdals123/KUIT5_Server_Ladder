@@ -10,77 +10,62 @@ public class LadderRunner {
     }
 
     public int run(PositiveNumber startNumber) {
-        Position position = new Position(ladder.getHeight(), startNumber.getNumber());
-
-        if (debug)
-            LadderPrinter.printLadder(ladder, position);
+        Position position = new Position(ladder.getHeight() + 1, startNumber.getNumber());
 
         while(canMoveDown(position)) {
             position = move(position);
         }
 
-        int row = position.getRow();
-        int column = position.getColumn();
-
-        if (column < ladder.getWidth() && ladder.hasLine(position)) {
-            return moveRight(position).getColumn();
-        }
-
-        if (column > 1 && ladder.hasLine(new Position(row, column - 1))) // move left
-            return moveLeft(position).getColumn();
-
-        return column;
+        return position.getColumn();
     }
 
     private Position move(Position currentPosition) {
-        int row = currentPosition.getRow();
-        int column = currentPosition.getColumn();
 
-        if (column < ladder.getWidth() && ladder.hasLine(currentPosition)) { // move right
-            return moveRight(currentPosition);
+        Position newPosition = moveDown(currentPosition);
+
+        if (canMoveRight(newPosition)) { // move right
+            return moveRight(newPosition);
         }
 
-        if (column > 1 && ladder.hasLine(new Position(row, column - 1))) { // move left
-            return moveLeft(currentPosition);
+        if (canMoveLeft(newPosition)) { // move left
+            return moveLeft(newPosition);
         }
 
-        return moveDown(currentPosition);
+        return newPosition;
 
     }
 
-    private boolean canMoveDown(Position currentPosition) {
-        return currentPosition.getRow() > 1;
+    private boolean canMoveDown(Position position) {
+        return position.getRow() > 1;
+    }
+
+    private boolean canMoveLeft(Position position) {
+        return (position.getColumn() > 1 && ladder.hasLine(new Position(position.getRow(), position.getColumn() - 1)));
+    }
+
+    private boolean canMoveRight(Position position) {
+        return (position.getColumn() < ladder.getWidth() && ladder.hasLine(position));
     }
 
     private Position moveLeft(Position currentPosition) {
-        currentPosition = new Position(currentPosition.getRow(), currentPosition.getColumn() - 1);
+        Position newPosition = new Position(currentPosition.getRow(), currentPosition.getColumn() - 1);
         if (debug)
-            LadderPrinter.printLadder(ladder, currentPosition);
-
-        if (canMoveDown(currentPosition)) { // move down
-            currentPosition = moveDown(currentPosition);
-        }
-
-        return currentPosition;
+            LadderPrinter.printLadder(ladder, newPosition);
+        return newPosition;
     }
 
     private Position moveRight(Position currentPosition) {
-        currentPosition = new Position(currentPosition.getRow(), currentPosition.getColumn() + 1);
+        Position newPosition = new Position(currentPosition.getRow(), currentPosition.getColumn() + 1);
         if (debug)
-            LadderPrinter.printLadder(ladder, currentPosition);
-
-        if (canMoveDown(currentPosition)) { // move down
-            currentPosition = moveDown(currentPosition);
-        }
-
-        return currentPosition;
+            LadderPrinter.printLadder(ladder, newPosition);
+        return newPosition;
     }
 
     private Position moveDown(Position currentPosition) {
-        currentPosition = new Position(currentPosition.getRow() - 1, currentPosition.getColumn());
+        Position newPosition = new Position(currentPosition.getRow() - 1, currentPosition.getColumn());
         if (debug)
-            LadderPrinter.printLadder(ladder, currentPosition);
-        return currentPosition;
+            LadderPrinter.printLadder(ladder, newPosition);
+        return newPosition;
     }
 
 
