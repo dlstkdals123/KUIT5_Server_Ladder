@@ -13,12 +13,14 @@ class LadderGameTest {
     private int person;
     private int ladderHeight;
     private static LadderGame ladderGame;
+    private static LadderSize ladderSize;
 
     @BeforeEach
     void setUp() {
         person = 5;
         ladderHeight = 5;
-        ladderGame = new LadderGame(person, ladderHeight);
+        ladderSize = new LadderSize(person, ladderHeight);
+        ladderGame = new LadderGame(ladderSize);
     }
 
     @Test
@@ -41,13 +43,10 @@ class LadderGameTest {
     @CsvSource(value = {"-1, 1", "0, 1", "1, -1", "1, 0"})
     @DisplayName("Negative: 사람과 사다리의 높이는 모두 자연수여야 한다.")
     void shouldThrowExceptionWhenNotPositiveNumbers(int invalidPerson, int invalidHeight) {
-        // given
-        String expectedErrorMessage = ExceptionCode.NOT_POSITIVE_INPUT.getMessage();
-
-        // when & then
-        assertThatThrownBy(() -> new LadderGame(invalidPerson, invalidHeight))
+        // given & when & then
+        assertThatThrownBy(() -> new LadderGame(new LadderSize(invalidPerson, invalidHeight)))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(expectedErrorMessage);
+                .hasMessage(ExceptionCode.NOT_POSITIVE_INPUT.getMessage());
     }
 
 

@@ -1,14 +1,12 @@
 package ladderGame;
 
 public class LadderGame {
-    private PositiveNumber person;
-    private PositiveNumber ladderHeight;
+    LadderSize ladderSize;
     private boolean[][] positions;
 
-    public LadderGame(int person, int ladderHeight) {
-        this.person = new PositiveNumber(person);
-        this.ladderHeight = new PositiveNumber(ladderHeight);
-        positions = new boolean[person + 1][ladderHeight + 1];
+    public LadderGame(LadderSize ladderSize) {
+        this.ladderSize = ladderSize;
+        positions = new boolean[ladderSize.getRow() + 1][ladderSize.getColumn() + 1];
     }
 
     public void drawLine(Position position) {
@@ -19,11 +17,11 @@ public class LadderGame {
     }
 
     public int getHeight() {
-        return ladderHeight.getNumber();
+        return ladderSize.getRow();
     }
 
     public int getWidth() {
-        return person.getNumber();
+        return ladderSize.getColumn();
     }
 
     public boolean hasLine(Position position) {
@@ -39,12 +37,12 @@ public class LadderGame {
     }
 
     private void validateRow(int row) {
-        if (row > ladderHeight.getNumber())
+        if (row > this.getHeight())
             throw new IllegalArgumentException(ExceptionCode.ROW_OUT_OF_RANGE.getMessage());
     }
 
     private void validateColumn(int column) {
-        if (column > person.getNumber())
+        if (column > this.getWidth())
             throw new IllegalArgumentException(ExceptionCode.COLUMN_OUT_OF_RANGE.getMessage());
     }
 
@@ -54,7 +52,7 @@ public class LadderGame {
     }
 
     private void validateAdjLine(int row, int column) {
-        if ((column < person.getNumber() && positions[row][column + 1]) // 오른쪽에 인접한 선이 있는 경우
+        if ((column < getWidth() && positions[row][column + 1]) // 오른쪽에 인접한 선이 있는 경우
                 || (column > 1 && positions[row][column - 1])) { // 왼쪽에 인접한 선이 있는 경우
             throw new IllegalArgumentException(ExceptionCode.ADJACENT_LINE.getMessage());
         }

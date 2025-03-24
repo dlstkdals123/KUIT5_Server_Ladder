@@ -14,7 +14,8 @@ class LadderRunnerTest {
     void shouldCreateLadderSuccessfullyWhenPositiveNumbers(int startNumber, int endNumber) {
         // given
         int person = 5, ladderHeight = 5;
-        LadderGame ladderGame = new LadderGame(person, ladderHeight);
+        LadderSize ladderSize = new LadderSize(person, ladderHeight);
+        LadderGame ladderGame = new LadderGame(ladderSize);
 
         ladderGame.drawLine(new Position(5, 1));
         ladderGame.drawLine(new Position(4, 2));
