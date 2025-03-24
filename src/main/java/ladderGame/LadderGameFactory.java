@@ -12,10 +12,7 @@ public class LadderGameFactory {
 
         ArrayList<Position> positions = getPositions(person, height);
 
-        while(true) {
-            if (numberOfLadderLine == 0)
-                break;
-
+        while(numberOfLadderLine > 0) {
             int randomIndex = random.nextInt(numberOfLadderLine);
             Position position = positions.get(randomIndex);
             ladderGame.drawLine(position);
