@@ -10,14 +10,7 @@ public class LadderGameFactory {
         int numberOfLadderLine = (int) (person * height * 0.3);
         Random random = new Random();
 
-        ArrayList<Position> positions = new ArrayList<Position>();
-
-        for(int possibleRow = 1; possibleRow < height; possibleRow++) {
-            for(int possibleColumn = 1; possibleColumn < person; possibleColumn++) {
-                Position possiblePosition = new Position(possibleRow, possibleColumn, height, person);
-                positions.add(possiblePosition);
-            }
-        }
+        ArrayList<Position> positions = getPositions();
 
         while(true) {
             if (numberOfLadderLine == 0)
@@ -28,7 +21,6 @@ public class LadderGameFactory {
             ladderGame.drawLine(position);
             numberOfLadderLine--;
             positions.remove(randomIndex);
-
 
             ArrayList<Position> possiblePositions = new ArrayList<Position>();
 
@@ -47,5 +39,18 @@ public class LadderGameFactory {
         if (person == 1) {
             throw new IllegalArgumentException(ExceptionCode.NO_SOLO_RANDOM_LADDER.getMessage());
         }
+    }
+
+    private static ArrayList<Position> getPositions() {
+        ArrayList<Position> positions = new ArrayList<Position>();
+
+        for(int possibleRow = 1; possibleRow < height; possibleRow++) {
+            for(int possibleColumn = 1; possibleColumn < person; possibleColumn++) {
+                Position possiblePosition = new Position(possibleRow, possibleColumn, height, person);
+                positions.add(possiblePosition);
+            }
+        }
+
+        return positions;
     }
 }
