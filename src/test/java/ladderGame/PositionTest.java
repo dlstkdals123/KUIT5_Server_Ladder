@@ -27,6 +27,8 @@ class PositionTest {
         assertThat(position).isNotNull();
         assertThat(position.getRow()).isEqualTo(validRow);
         assertThat(position.getColumn()).isEqualTo(validColumn);
+        assertThat(position.getWidth()).isEqualTo(person);
+        assertThat(position.getHeight()).isEqualTo(ladderHeight);
     }
 
 
