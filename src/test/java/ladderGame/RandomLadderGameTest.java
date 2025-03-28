@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class LadderGameFactoryTest {
+class RandomLadderGameTest {
 
     @Test
     @DisplayName("Positive: 랜덤생성된 사다리의 개수는 [person * height * 0.3] 이어야 한다. (소수점 버림)")
@@ -17,7 +17,8 @@ class LadderGameFactoryTest {
         final int numberOfLadderLine = person * height * 3 / 10;
         int countOfLadderLine = 0;
 
-        LadderGame ladderGame = LadderGameFactory.createRandomLadderGame(height, person);
+        RandomLadderGame randomLadderGameCreator = new RandomLadderGame();
+        LadderGame ladderGame = randomLadderGameCreator.create(new LadderGame(height, person));
         for(int row = 1; row <= height; row++) {
             for(int column = 1; column < person; column++) {
                 if (ladderGame.hasLine(new Position(row, column, height, person))) {

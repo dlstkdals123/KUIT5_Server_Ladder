@@ -2,7 +2,7 @@ package ladderGame;
 
 public class Main {
     public static void main(String[] args) {
-        int person = 5, height = 4;
+        int person = 9, height = 8;
         int startNumber = 2;
 //        LadderGame ladderGame = new LadderGame(person, height);
 //
