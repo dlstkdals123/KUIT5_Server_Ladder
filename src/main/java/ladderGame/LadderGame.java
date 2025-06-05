@@ -4,9 +4,9 @@ public class LadderGame {
     LadderSize ladderSize;
     private boolean[][] positions;
 
-    public LadderGame(int person, int column) {
-        this.ladderSize = new LadderSize(person, column);
-        positions = new boolean[ladderSize.getRow() + 1][ladderSize.getColumn() + 1];
+    public LadderGame(int height, int person) {
+        this.ladderSize = new LadderSize(height, person);
+        positions = new boolean[height + 1][person];
     }
 
     public void drawLine(Position position) {
@@ -40,7 +40,7 @@ public class LadderGame {
     }
 
     private void validateColumn(Position position) {
-        if (position.getColumn() > this.getWidth())
+        if (position.getColumn() >= this.getWidth())
             throw new IllegalArgumentException(ExceptionCode.COLUMN_OUT_OF_RANGE.getMessage());
     }
 
@@ -56,7 +56,7 @@ public class LadderGame {
     }
 
     public boolean isAdjLine(Position position) {
-        return ((position.getColumn() < getWidth() && positions[position.getRow()][position.getColumn() + 1]) // 오른쪽에 인접한 선이 있는 경우
+        return ((position.getColumn() < getWidth() - 1 && positions[position.getRow()][position.getColumn() + 1]) // 오른쪽에 인접한 선이 있는 경우
                 || (position.getColumn() > 1 && positions[position.getRow()][position.getColumn() - 1]));
     }
 }
